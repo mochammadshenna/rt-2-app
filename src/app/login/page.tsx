@@ -30,10 +30,15 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4" style={{
-            background: 'linear-gradient(135deg, #4F46E5 0%, #3B82F6 100%)',
-        }}>
-            <div className="w-full max-w-md">
+        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+            {/* Fixed background gradient */}
+            <div
+                className="fixed inset-0"
+                style={{
+                    background: 'linear-gradient(135deg, #4F46E5 0%, #3B82F6 100%)',
+                }}
+            />
+            <div className="w-full max-w-md relative z-10">
                 <Card className="bg-white/95 backdrop-blur-sm shadow-2xl border-0 rounded-3xl overflow-hidden">
                     <CardContent className="p-8">
                         <div className="text-center space-y-8">
