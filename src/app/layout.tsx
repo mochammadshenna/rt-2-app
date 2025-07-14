@@ -5,6 +5,22 @@ import "./globals.css";
 export const metadata: Metadata = {
     title: "Rukun Tetangga 02",
     description: "Aplikasi Manajemen Rukun Tetangga",
+    openGraph: {
+        title: "Rukun Tetangga 02",
+        description: "Aplikasi Manajemen Rukun Tetangga",
+        url: "https://rt-2-app.vercel.app/", // Replace with your Vercel deployment URL
+        siteName: "Rukun Tetangga App",
+        images: [
+            {
+                url: "https://rt-2-app.vercel.app/og-image.svg", // Replace with your Vercel deployment URL
+                width: 1200,
+                height: 630,
+                alt: "Rukun Tetangga 02 Open Graph Image",
+            },
+        ],
+        locale: "id_ID",
+        type: "website",
+    },
 };
 
 export default function RootLayout({
