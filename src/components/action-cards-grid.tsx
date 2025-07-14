@@ -11,6 +11,7 @@ interface ActionCard {
     route: string
     shortDescription: string
     adminOnly?: boolean
+    guestRestricted?: boolean
 }
 
 const actionCards: ActionCard[] = [
@@ -18,7 +19,7 @@ const actionCards: ActionCard[] = [
         id: "iuran",
         label: "Iuran",
         icon: CreditCard,
-        backgroundColor: "bg-gradient-to-br from-purple-300 to-purple-500",
+        backgroundColor: "bg-gradient-to-br from-pink-100 to-pink-200",
         route: "/tagihan",
         shortDescription: "Lihat dan bayar iuran"
     },
@@ -26,7 +27,7 @@ const actionCards: ActionCard[] = [
         id: "bagikan-informasi",
         label: "Bagikan Informasi",
         icon: Megaphone,
-        backgroundColor: "bg-gradient-to-br from-green-300 to-green-500",
+        backgroundColor: "bg-gradient-to-br from-yellow-100 to-yellow-200",
         route: "/bagikan-informasi",
         shortDescription: "Berbagi info komunitas",
         adminOnly: true
@@ -35,7 +36,7 @@ const actionCards: ActionCard[] = [
         id: "riwayat",
         label: "Riwayat",
         icon: FileText,
-        backgroundColor: "bg-gradient-to-br from-orange-300 to-orange-500",
+        backgroundColor: "bg-gradient-to-br from-blue-100 to-blue-200",
         route: "/riwayat",
         shortDescription: "Lihat aktivitas terdahulu"
     },
@@ -43,57 +44,65 @@ const actionCards: ActionCard[] = [
         id: "buat-surat",
         label: "Buat Surat",
         icon: FileSignature,
-        backgroundColor: "bg-gradient-to-br from-blue-300 to-blue-500",
+        backgroundColor: "bg-gradient-to-br from-green-100 to-green-200",
         route: "/buat-surat",
         shortDescription: "Buat surat pengantar",
+        guestRestricted: true
     },
     {
         id: "lapor",
         label: "Lapor",
         icon: MessageSquare,
-        backgroundColor: "bg-gradient-to-br from-yellow-300 to-yellow-500",
+        backgroundColor: "bg-gradient-to-br from-cyan-100 to-cyan-200",
         route: "/lapor",
-        shortDescription: "Temuan penting"
+        shortDescription: "Laporkan kejadian penting"
     },
     {
         id: "cctv",
         label: "CCTV",
         icon: Camera,
-        backgroundColor: "bg-gradient-to-br from-pink-300 to-pink-500",
+        backgroundColor: "bg-gradient-to-br from-purple-100 to-purple-200",
         route: "/cctv",
         shortDescription: "Monitor keamanan area",
+        guestRestricted: true
     },
     {
         id: "admin",
         label: "Admin",
         icon: Settings,
-        backgroundColor: "bg-gradient-to-br from-gray-300 to-gray-500",
+        backgroundColor: "bg-gradient-to-br from-red-100 to-red-200",
         route: "/admin",
-        shortDescription: "Panel pengurus RT",
+        shortDescription: "Panel administrasi",
         adminOnly: true
     },
     {
         id: "switch-rumah",
         label: "Pindah Alamat",
         icon: MapPin,
-        backgroundColor: "bg-gradient-to-br from-indigo-300 to-indigo-500",
+        backgroundColor: "bg-gradient-to-br from-emerald-100 to-emerald-200",
         route: "/switch-rumah",
-        shortDescription: "Perbaharui data tinggal",
+        shortDescription: "Perbaharui alamat rumah",
+        guestRestricted: true
     }
 ]
 
 interface ActionCardsGridProps {
     onCardClick?: (cardId: string) => void
-    userRole?: 'admin' | 'warga'
+    userRole?: 'admin' | 'warga' | 'guest'
 }
 
-export default function ActionCardsGrid({ onCardClick, userRole = 'warga' }: ActionCardsGridProps) {
+export default function ActionCardsGrid({ onCardClick, userRole = 'guest' }: ActionCardsGridProps) {
     const router = useRouter()
 
     const handleCardClick = (card: ActionCard) => {
         // Check permissions
         if (card.adminOnly && userRole !== 'admin') {
             alert('Fitur ini hanya tersedia untuk Admin')
+            return
+        }
+
+        if (card.guestRestricted && userRole === 'guest') {
+            alert('Silakan login sebagai warga untuk mengakses fitur ini')
             return
         }
 
@@ -106,11 +115,14 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'warga' }: Act
 
     const getFilteredCards = () => {
         return actionCards.filter(card => {
-            // For admin users, show all cards, including admin-only ones.
-            // Admin cards themselves will be filtered out if their 'id' is 'admin' from the overall list,
-            // as the admin dashboard provides specific admin functionalities.
+            // If user is Admin, hide Admin and Bagikan Informasi cards
             if (userRole === 'admin') {
-                return true
+                return card.id !== 'admin' && card.id !== 'bagikan-informasi'
+            }
+
+            // For guest users, hide admin-only cards
+            if (userRole === 'guest') {
+                return !card.adminOnly
             }
 
             // For wargas, show all cards except admin-only
@@ -127,7 +139,8 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'warga' }: Act
             <div className="grid grid-cols-2 gap-4 sm:gap-6">
                 {getFilteredCards().map((card) => {
                     const IconComponent = card.icon
-                    const isRestricted = (card.adminOnly && userRole !== 'admin')
+                    const isRestricted = (card.adminOnly && userRole !== 'admin') ||
+                        (card.guestRestricted && userRole === 'guest')
 
                     return (
                         <button
@@ -135,18 +148,18 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'warga' }: Act
                             onClick={() => handleCardClick(card)}
                             disabled={isRestricted}
                             className={`
-                                    ${card.backgroundColor}
-                                    relative overflow-hidden rounded-3xl p-6 
-                                    transition-all duration-300 ease-out
-                                    hover:scale-105 hover:shadow-2xl
-                                    focus:outline-none focus:ring-4 focus:ring-white/50
-                                    active:scale-95
-                                    flex flex-col items-center justify-between
-                                    min-h-[140px] sm:min-h-[160px]
-                                    group
-                                    shadow-lg
-                                    ${isRestricted ? 'opacity-60 cursor-not-allowed' : ''}
-                            `}
+                ${card.backgroundColor}
+                relative overflow-hidden rounded-3xl p-6 
+                transition-all duration-300 ease-out
+                hover:scale-105 hover:shadow-2xl
+                focus:outline-none focus:ring-4 focus:ring-white/50
+                active:scale-95
+                flex flex-col items-center justify-between
+                min-h-[140px] sm:min-h-[160px]
+                group
+                shadow-lg
+                ${isRestricted ? 'opacity-60 cursor-not-allowed' : ''}
+              `}
                         >
                             {/* Main Content */}
                             <div className="flex flex-col items-center space-y-3 flex-1 justify-center">
@@ -163,6 +176,11 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'warga' }: Act
                                     {card.adminOnly && (
                                         <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
                                             <span className="text-white text-xs">A</span>
+                                        </div>
+                                    )}
+                                    {card.guestRestricted && userRole === 'guest' && (
+                                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center">
+                                            <Lock className="w-2 h-2 text-white" />
                                         </div>
                                     )}
                                 </div>
@@ -192,6 +210,14 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'warga' }: Act
             </div>
 
             {/* Role Information */}
+            {userRole === 'guest' && (
+                <div className="mt-6 p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+                    <p className="text-white/90 text-sm text-center">
+                        💡 Beberapa fitur terbatas untuk Guest. Login sebagai warga untuk akses penuh.
+                    </p>
+                </div>
+            )}
+
             {userRole === 'admin' && (
                 <div className="mt-6 p-4 bg-red-500/10 backdrop-blur-sm rounded-2xl border border-red-400/20">
                     <p className="text-white/90 text-sm text-center">
