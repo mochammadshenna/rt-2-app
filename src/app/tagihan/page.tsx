@@ -101,7 +101,7 @@ export default function IuranPage() {
             <div className="min-h-screen w-full max-w-md mx-auto">
                 <div className="flex flex-col h-full overflow-auto">
                     {/* Header */}
-                    <div className="flex items-center justify-between p-6 pt-12">
+                    <div className="flex items-center justify-between p-6 pt-4">
                         <div className="flex items-center space-x-4">
                             <Button
                                 variant="ghost"

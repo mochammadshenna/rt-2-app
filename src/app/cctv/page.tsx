@@ -44,10 +44,10 @@ export default function CCTVPage() {
     };
 
     return (
-        <MobileContainer>
-            <div className="flex flex-col h-screen">
+        <div className="min-h-screen bg-gradient-to-b from-[var(--primary-gradient-start)] to-[var(--primary-gradient-end)]">
+            <div className="max-w-md mx-auto h-screen flex flex-col relative">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 pt-12">
+                <div className="flex items-center justify-between p-6 pt-4">
                     <div className="flex items-center space-x-4">
                         <Button
                             variant="ghost"
@@ -135,6 +135,6 @@ export default function CCTVPage() {
                     </Card>
                 </div>
             </div>
-        </MobileContainer>
+        </div>
     );
 }

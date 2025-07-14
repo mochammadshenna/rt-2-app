@@ -9,16 +9,6 @@ import { ArrowLeft, FileText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const MobileContainer = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <div className="min-h-screen bg-gradient-to-b from-[#4F46E5] to-[#3B82F6] flex items-center justify-center p-4">
-            <div className="w-full max-w-md mx-auto">
-                {children}
-            </div>
-        </div>
-    );
-};
-
 export default function BuatSuratPage() {
     const router = useRouter();
     const [keperluan, setKeperluan] = useState('');
@@ -48,7 +38,7 @@ export default function BuatSuratPage() {
         <div className="min-h-screen bg-gradient-to-b from-[var(--primary-gradient-start)] to-[var(--primary-gradient-end)]">
             <div className="max-w-md mx-auto h-screen flex flex-col relative">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 pt-12">
+                <div className="flex items-center justify-between p-6 pt-4">
                     <div className="flex items-center space-x-4">
                         <Button
                             variant="ghost"

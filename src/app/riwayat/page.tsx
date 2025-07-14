@@ -12,7 +12,7 @@ export default function RiwayatPage() {
         <div className="min-h-screen bg-gradient-to-b from-[var(--primary-gradient-start)] to-[var(--primary-gradient-end)]">
             <div className="container mx-auto px-4 py-6 max-w-md">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 pt-12">
+                <div className="flex items-center justify-between p-6 pt-4">
                     <div className="flex items-center space-x-4">
                         <Button
                             variant="ghost"
