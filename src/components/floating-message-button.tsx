@@ -15,7 +15,11 @@ export const FloatingMessageButton = () => {
     const handleClick = () => {
         setIsClicked(true);
         setTimeout(() => setIsClicked(false), 200);
-        alert('Chat feature coming soon! 💬');
+
+        const phoneNumber = "6285691499611"; // Phone number without '+'
+        const message = encodeURIComponent("Assalammualaikum Pak RT, saya membutuhkan bantuannya");
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+        window.open(whatsappUrl, "_blank");
     };
 
     // Prevent hydration mismatch by not rendering until mounted
