@@ -2,6 +2,7 @@
 
 import ActionCardsGrid from "@/components/action-cards-grid"
 import DashboardHeader from "@/components/dashboard-header"
+import { FloatingMessageButton } from "@/components/floating-message-button"
 import { MobileContainer } from "@/components/shared/mobile-container"
 import VotingSection from "@/components/voting-section"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -10,8 +11,13 @@ import React, { Suspense, useEffect, useState } from "react"
 function HomeContent() {
     const [selectedCard, setSelectedCard] = useState<string | null>(null)
     const [userRole, setUserRole] = useState<'admin' | 'warga' | null>(null)
+    const [isMounted, setIsMounted] = useState(false);
     const searchParams = useSearchParams()
     const router = useRouter()
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useEffect(() => {
         // Check URL params first
@@ -35,6 +41,10 @@ function HomeContent() {
     const handleCardClick = (cardId: string) => {
         setSelectedCard(cardId)
         console.log(`Card clicked: ${cardId}`)
+    }
+
+    if (!isMounted) {
+        return null;
     }
 
     // Show loading while determining user role
@@ -98,6 +108,7 @@ function HomeContent() {
                     </div>
                 </div>
             </MobileContainer>
+            <FloatingMessageButton />
         </div>
     )
 }
