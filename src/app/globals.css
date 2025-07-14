@@ -234,7 +234,7 @@
     }
 
     body {
-        background: linear-gradient(to bottom, var(--primary-gradient-start), var(--primary-gradient-end));
+        background: linear-gradient(to bottom, #4F46E5, #3B82F6);
         color: var(--text-primary);
         font-family: var(--font-body);
         /* Enable vertical scrolling */
