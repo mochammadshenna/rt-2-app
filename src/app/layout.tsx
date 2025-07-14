@@ -8,11 +8,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Rukun Tetangga 02",
         description: "Aplikasi Manajemen Rukun Tetangga",
-        url: "https://rt-2-app.vercel.app/", // Replace with your Vercel deployment URL
+        url: "YOUR_ACTUAL_VERCEL_DEPLOYMENT_URL", // IMPORTANT: Replace this with your live Vercel URL (e.g., https://your-project-name.vercel.app/)
         siteName: "Rukun Tetangga App",
         images: [
             {
-                url: "https://rt-2-app.vercel.app/og-image.svg", // Replace with your Vercel deployment URL
+                url: "YOUR_ACTUAL_VERCEL_DEPLOYMENT_URL/og-image.svg", // IMPORTANT: Replace this with your live Vercel URL (e.g., https://your-project-name.vercel.app/)
                 width: 1200,
                 height: 630,
                 alt: "Rukun Tetangga 02 Open Graph Image",
