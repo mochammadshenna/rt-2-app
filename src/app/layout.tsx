@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-    title: "RT Community App",
-    description: "Rukun Tetangga Community Management Application",
+    title: "Rukun Tetangga 02",
+    description: "Aplikasi Manajemen Rukun Tetangga",
 };
 
 export default function RootLayout({
@@ -14,6 +14,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <head>
+                <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+            </head>
             <body className="antialiased">
                 {children}
                 <FloatingMessageButton />
