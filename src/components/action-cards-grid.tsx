@@ -19,7 +19,7 @@ const actionCards: ActionCard[] = [
         id: "iuran",
         label: "Iuran",
         icon: CreditCard,
-        backgroundColor: "bg-gradient-to-br from-pink-100 to-pink-200",
+        backgroundColor: "bg-gradient-to-br from-purple-100 to-purple-200",
         route: "/tagihan",
         shortDescription: "Lihat dan bayar iuran"
     },
@@ -27,7 +27,7 @@ const actionCards: ActionCard[] = [
         id: "bagikan-informasi",
         label: "Bagikan Informasi",
         icon: Megaphone,
-        backgroundColor: "bg-gradient-to-br from-yellow-100 to-yellow-200",
+        backgroundColor: "bg-gradient-to-br from-green-100 to-green-200",
         route: "/bagikan-informasi",
         shortDescription: "Berbagi info komunitas",
         adminOnly: true
@@ -36,7 +36,7 @@ const actionCards: ActionCard[] = [
         id: "riwayat",
         label: "Riwayat",
         icon: FileText,
-        backgroundColor: "bg-gradient-to-br from-blue-100 to-blue-200",
+        backgroundColor: "bg-gradient-to-br from-orange-100 to-orange-200",
         route: "/riwayat",
         shortDescription: "Lihat aktivitas terdahulu"
     },
@@ -44,7 +44,7 @@ const actionCards: ActionCard[] = [
         id: "buat-surat",
         label: "Buat Surat",
         icon: FileSignature,
-        backgroundColor: "bg-gradient-to-br from-green-100 to-green-200",
+        backgroundColor: "bg-gradient-to-br from-blue-100 to-blue-200",
         route: "/buat-surat",
         shortDescription: "Buat surat pengantar",
         guestRestricted: true
@@ -53,15 +53,15 @@ const actionCards: ActionCard[] = [
         id: "lapor",
         label: "Lapor",
         icon: MessageSquare,
-        backgroundColor: "bg-gradient-to-br from-cyan-100 to-cyan-200",
+        backgroundColor: "bg-gradient-to-br from-yellow-100 to-yellow-200",
         route: "/lapor",
-        shortDescription: "Laporkan kejadian penting"
+        shortDescription: "Temuan penting"
     },
     {
         id: "cctv",
         label: "CCTV",
         icon: Camera,
-        backgroundColor: "bg-gradient-to-br from-purple-100 to-purple-200",
+        backgroundColor: "bg-gradient-to-br from-pink-100 to-pink-200",
         route: "/cctv",
         shortDescription: "Monitor keamanan area",
         guestRestricted: true
@@ -70,18 +70,18 @@ const actionCards: ActionCard[] = [
         id: "admin",
         label: "Admin",
         icon: Settings,
-        backgroundColor: "bg-gradient-to-br from-red-100 to-red-200",
+        backgroundColor: "bg-gradient-to-br from-gray-100 to-gray-200",
         route: "/admin",
-        shortDescription: "Panel administrasi",
+        shortDescription: "Panel pengurus RT",
         adminOnly: true
     },
     {
         id: "switch-rumah",
         label: "Pindah Alamat",
         icon: MapPin,
-        backgroundColor: "bg-gradient-to-br from-emerald-100 to-emerald-200",
+        backgroundColor: "bg-gradient-to-br from-indigo-100 to-indigo-200",
         route: "/switch-rumah",
-        shortDescription: "Perbaharui alamat rumah",
+        shortDescription: "Perbaharui data tinggal",
         guestRestricted: true
     }
 ]
@@ -115,19 +115,21 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'guest' }: Act
 
     const getFilteredCards = () => {
         return actionCards.filter(card => {
-            // If user is Admin, hide Admin and Bagikan Informasi cards
-            if (userRole === 'admin') {
-                return card.id !== 'admin' && card.id !== 'bagikan-informasi'
-            }
-
-            // For guest users, hide admin-only cards
+            // For guest users, hide admin-only cards and guest-restricted cards
             if (userRole === 'guest') {
-                return !card.adminOnly
+                return !card.adminOnly && !card.guestRestricted
             }
 
-            // For wargas, show all cards except admin-only
+            // For admin users, show all cards, including admin-only ones.
+            // Admin cards themselves will be filtered out if their 'id' is 'admin' from the overall list,
+            // as the admin dashboard provides specific admin functionalities.
+            if (userRole === 'admin') {
+                return true
+            }
+
+            // For wargas, show all cards except admin-only and guest-restricted
             if (userRole === 'warga') {
-                return !card.adminOnly
+                return !card.adminOnly && !card.guestRestricted
             }
 
             return true
@@ -148,18 +150,18 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'guest' }: Act
                             onClick={() => handleCardClick(card)}
                             disabled={isRestricted}
                             className={`
-                ${card.backgroundColor}
-                relative overflow-hidden rounded-3xl p-6 
-                transition-all duration-300 ease-out
-                hover:scale-105 hover:shadow-2xl
-                focus:outline-none focus:ring-4 focus:ring-white/50
-                active:scale-95
-                flex flex-col items-center justify-between
-                min-h-[140px] sm:min-h-[160px]
-                group
-                shadow-lg
-                ${isRestricted ? 'opacity-60 cursor-not-allowed' : ''}
-              `}
+                                    ${card.backgroundColor}
+                                    relative overflow-hidden rounded-3xl p-6 
+                                    transition-all duration-300 ease-out
+                                    hover:scale-105 hover:shadow-2xl
+                                    focus:outline-none focus:ring-4 focus:ring-white/50
+                                    active:scale-95
+                                    flex flex-col items-center justify-between
+                                    min-h-[140px] sm:min-h-[160px]
+                                    group
+                                    shadow-lg
+                                    ${isRestricted ? 'opacity-60 cursor-not-allowed' : ''}
+                            `}
                         >
                             {/* Main Content */}
                             <div className="flex flex-col items-center space-y-3 flex-1 justify-center">

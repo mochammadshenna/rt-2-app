@@ -31,22 +31,22 @@ export const FloatingMessageButton = () => {
         fixed bottom-6 right-6 z-50
         w-14 h-14 md:w-16 md:h-16
         rounded-full
-        bg-gradient-to-br from-[#4F46E5] to-[#3B82F6]
+        bg-gradient-to-br from-green-500 to-green-700
         text-white
         shadow-lg
         hover:shadow-xl hover:shadow-blue-500/25
         transform transition-all duration-300 ease-out
         hover:scale-110
-        focus:outline-none focus:ring-4 focus:ring-blue-300/50
+        focus:outline-none focus:ring-4 focus:ring-green-300/50
         active:scale-95
         animate-pulse hover:animate-none
         ${isClicked ? 'animate-bounce' : ''}
-      `}
+        `}
             style={{
                 boxShadow: `
-          0 4px 14px 0 rgba(31, 38, 135, 0.37),
-          0 0 20px rgba(79, 70, 229, 0.4),
-          inset 0 1px 0 rgba(255, 255, 255, 0.2)
+            0 4px 14px 0 rgba(31, 38, 135, 0.37),
+            0 0 20px rgba(79, 70, 229, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2)
         `,
             }}
         >
