@@ -1,0 +1,316 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --color-background: #4F46E5;
+    --color-foreground: #FFFFFF;
+
+    --color-card: #FFFFFF;
+    --color-card-foreground: #374151;
+
+    --color-popover: #FFFFFF;
+    --color-popover-foreground: #0a0a0a;
+
+    --color-primary: #FFFFFF;
+    --color-primary-foreground: #374151;
+
+    --color-secondary: #E5E7EB;
+    --color-secondary-foreground: #374151;
+
+    --color-muted: #E5E7EB;
+    --color-muted-foreground: #A3A3A3;
+
+    --color-accent: #FFFFFF;
+    --color-accent-foreground: #374151;
+
+    --color-destructive: #EF4444;
+    --color-destructive-foreground: #FFFFFF;
+
+    --color-border: #E5E5E5;
+    --color-input: #FFFFFF;
+    --color-ring: #FFFFFF;
+
+    --color-chart-1: #e67e22;
+    --color-chart-2: #2d8659;
+    --color-chart-3: #1e3a5f;
+    --color-chart-4: #f1c40f;
+    --color-chart-5: #e74c3c;
+
+    --color-sidebar: #f7f7f7;
+    --color-sidebar-foreground: #404040;
+    --color-sidebar-primary: #1a1a1a;
+    --color-sidebar-primary-foreground: #fafafa;
+    --color-sidebar-accent: #f0f0f0;
+    --color-sidebar-accent-foreground: #1a1a1a;
+    --color-sidebar-border: #d4d4d8;
+    --color-sidebar-ring: #3b82f6;
+
+    /* Custom colors from design system */
+    --color-primary-gradient-start: #4F46E5;
+    --color-primary-gradient-end: #3B82F6;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #E5E7EB;
+    --color-card-text: #374151;
+
+    --color-card-pastel-pink: #FDF2F8;
+    --color-card-pastel-yellow: #FEF3C7;
+    --color-card-pastel-blue: #DBEAFE;
+    --color-card-pastel-mint: #D1FAE5;
+    --color-card-pastel-purple: #F3E8FF;
+    --color-card-pastel-green: #DCFCE7;
+
+    --font-body: "Inter", sans-serif;
+    --font-heading: "Inter", sans-serif;
+
+    /* Standard 8px border-radius for all components */
+    --radius-lg: 8px;
+    --radius-md: 8px;
+    --radius-sm: 8px;
+
+    --animate-accordion-down: accordion-down 0.2s ease-out;
+    --animate-accordion-up: accordion-up 0.2s ease-out;
+
+    @keyframes accordion-down {
+        from {
+            height: 0;
+        }
+
+        to {
+            height: var(--radix-accordion-content-height);
+        }
+    }
+
+    @keyframes accordion-up {
+        from {
+            height: var(--radix-accordion-content-height);
+        }
+
+        to {
+            height: 0;
+        }
+    }
+}
+
+@layer base {
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: #e5e5e5;
+    }
+
+    /* Apply 8px border-radius to all buttons and cards globally */
+    button,
+    .btn,
+    [role="button"],
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"] {
+        border-radius: 8px !important;
+    }
+
+    /* Card components */
+    .card,
+    [class*="card"],
+    .bg-white,
+    .bg-gray-50,
+    .bg-gray-100,
+    .rounded,
+    .rounded-lg,
+    .rounded-md,
+    .rounded-sm,
+    .rounded-xl {
+        border-radius: 8px !important;
+    }
+
+    /* Input fields */
+    input,
+    textarea,
+    select {
+        border-radius: 8px !important;
+    }
+}
+
+@layer utilities {
+    body {
+        font-family: var(--font-body);
+    }
+
+    /* Utility class to enforce 8px radius */
+    .rounded-8 {
+        border-radius: 8px !important;
+    }
+}
+
+@layer base {
+    :root {
+        --background: var(--color-background);
+        --foreground: var(--color-foreground);
+        --card: var(--color-card);
+        --card-foreground: var(--color-card-foreground);
+        --popover: var(--color-popover);
+        --popover-foreground: var(--color-popover-foreground);
+        --primary: var(--color-primary);
+        --primary-foreground: var(--color-primary-foreground);
+        --secondary: var(--color-secondary);
+        --secondary-foreground: var(--color-secondary-foreground);
+        --muted: var(--color-muted);
+        --muted-foreground: var(--color-muted-foreground);
+        --accent: var(--color-accent);
+        --accent-foreground: var(--color-accent-foreground);
+        --destructive: var(--color-destructive);
+        --destructive-foreground: var(--color-destructive-foreground);
+        --border: var(--color-border);
+        --input: var(--color-input);
+        --ring: var(--color-ring);
+        --chart-1: var(--color-chart-1);
+        --chart-2: var(--color-chart-2);
+        --chart-3: var(--color-chart-3);
+        --chart-4: var(--color-chart-4);
+        --chart-5: var(--color-chart-5);
+        --radius: 8px;
+        --sidebar-background: var(--color-sidebar);
+        --sidebar-foreground: var(--color-sidebar-foreground);
+        --sidebar-primary: var(--color-sidebar-primary);
+        --sidebar-primary-foreground: var(--color-sidebar-primary-foreground);
+        --sidebar-accent: var(--color-sidebar-accent);
+        --sidebar-accent-foreground: var(--color-sidebar-accent-foreground);
+        --sidebar-border: var(--color-sidebar-border);
+        --sidebar-ring: var(--color-sidebar-ring);
+
+        /* Custom design system variables */
+        --primary-gradient-start: var(--color-primary-gradient-start);
+        --primary-gradient-end: var(--color-primary-gradient-end);
+        --text-primary: var(--color-text-primary);
+        --text-secondary: var(--color-text-secondary);
+        --card-text: var(--color-card-text);
+
+        --card-pastel-pink: var(--color-card-pastel-pink);
+        --card-pastel-yellow: var(--color-card-pastel-yellow);
+        --card-pastel-blue: var(--color-card-pastel-blue);
+        --card-pastel-mint: var(--color-card-pastel-mint);
+        --card-pastel-purple: var(--color-card-pastel-purple);
+        --card-pastel-green: var(--color-card-pastel-green);
+    }
+}
+
+@layer base {
+    @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp5F8_b-sAR2.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp5F8_b-sAR2.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp5F8_b-sAR2.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* Fix scrolling and responsive design */
+    html,
+    body {
+        height: 100%;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background: linear-gradient(to bottom, var(--primary-gradient-start), var(--primary-gradient-end));
+        color: var(--text-primary);
+        font-family: var(--font-body);
+        /* Enable vertical scrolling */
+        overflow-y: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+
+    p {
+        font-weight: 400;
+        color: var(--text-secondary);
+    }
+
+    .text-card-label {
+        font-weight: 500;
+        color: var(--card-text);
+    }
+
+    /* Ensure scrollable containers */
+    .min-h-screen {
+        min-height: 100vh;
+        min-height: 100dvh;
+        /* Dynamic viewport height */
+    }
+
+    /* Fix mobile container for better scrolling */
+    .mobile-container {
+        width: 100%;
+        max-width: 28rem;
+        /* 448px - mobile container max width */
+        margin: 0 auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    /* Desktop responsive adjustments */
+    @media (min-width: 768px) {
+        .mobile-container {
+            max-width: 32rem;
+            /* 512px - slightly wider on tablets */
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .mobile-container {
+            max-width: 36rem;
+            /* 576px - wider on desktop */
+        }
+    }
+
+    /* Fix for webkit browsers scrolling */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
