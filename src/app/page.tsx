@@ -5,9 +5,9 @@ import DashboardHeader from "@/components/dashboard-header"
 import { MobileContainer } from "@/components/shared/mobile-container"
 import VotingSection from "@/components/voting-section"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import React, { Suspense, useEffect, useState } from "react"
 
-export default function HomePage() {
+function HomeContent() {
     const [selectedCard, setSelectedCard] = useState<string | null>(null)
     const [userRole, setUserRole] = useState<'admin' | 'warga' | null>(null)
     const searchParams = useSearchParams()
@@ -99,5 +99,13 @@ export default function HomePage() {
                 </div>
             </MobileContainer>
         </div>
+    )
+}
+
+export default function HomePage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <HomeContent />
+        </Suspense>
     )
 }

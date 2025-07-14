@@ -1,9 +1,27 @@
-import { cn } from "@/lib/utils"
-import * as Dialog from "@radix-ui/react-dialog"
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import * as Dialog from "@radix-ui/react-dialog";
+import * as React from "react";
 
-const Modal = Dialog.Root
-const ModalTrigger = Dialog.Trigger
+const Modal = ({
+    open,
+    onOpenChange,
+    size,
+    children,
+}: {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+    size?: "sm" | "md" | "lg";
+    children: React.ReactNode;
+}) => (
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+        <ModalPortal>
+            <ModalOverlay />
+            <ModalContent size={size}>{children}</ModalContent>
+        </ModalPortal>
+    </Dialog.Root>
+);
+
+const ModalTrigger = Dialog.Trigger;
 
 const ModalPortal = ({ children, ...props }: Dialog.DialogPortalProps) => (
     <Dialog.Portal {...props}>
@@ -31,8 +49,8 @@ ModalOverlay.displayName = Dialog.Overlay.displayName
 
 const ModalContent = React.forwardRef<
     React.ElementRef<typeof Dialog.Content>,
-    React.ComponentPropsWithoutRef<typeof Dialog.Content>
->(({ className, children, ...props }, ref) => (
+    React.ComponentPropsWithoutRef<typeof Dialog.Content> & { size?: "sm" | "md" | "lg" }
+>(({ className, children, size, ...props }, ref) => (
     <ModalPortal>
         <ModalOverlay />
         <Dialog.Content
@@ -40,6 +58,9 @@ const ModalContent = React.forwardRef<
             className={cn(
                 "fixed z-50 grid w-full gap-4 rounded-b-lg border bg-background p-6 shadow-lg animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-bottom-full sm:max-w-lg sm:rounded-lg sm:zoom-in-100 data-[state=open]:sm:slide-in-from-bottom-0",
                 "dark:bg-slate-950 dark:text-slate-50",
+                size === "sm" && "sm:max-w-sm",
+                size === "md" && "sm:max-w-md",
+                size === "lg" && "sm:max-w-2xl",
                 className
             )}
             {...props}
@@ -99,5 +120,5 @@ const ModalDescription = React.forwardRef<
 ))
 ModalDescription.displayName = Dialog.Description.displayName
 
-export { Modal, ModalContent, ModalDescription, ModalFooter, ModalHeader, ModalTitle, ModalTrigger }
+export { Modal, ModalContent, ModalDescription, ModalFooter, ModalHeader, ModalTitle, ModalTrigger };
 

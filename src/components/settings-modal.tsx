@@ -35,6 +35,8 @@ interface SettingsModalProps {
     defaultTab?: 'profile' | 'notifications' | 'privacy' | 'appearance' | 'account';
 }
 
+type SettingCategory = 'profile' | 'notifications' | 'privacy' | 'appearance' | 'account';
+
 interface UserProfile {
     name: string;
     email: string;
@@ -67,7 +69,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     onClose,
     defaultTab = 'profile'
 }) => {
-    const [activeTab, setActiveTab] = useState(defaultTab);
+    const [selectedCategory, setSelectedCategory] = useState<SettingCategory>(defaultTab);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -117,7 +119,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     const [passwordErrors, setPasswordErrors] = useState<Record<string, string>>({});
 
     useEffect(() => {
-        setActiveTab(defaultTab);
+        setSelectedCategory(defaultTab);
     }, [defaultTab]);
 
     const validateProfile = (): boolean => {
@@ -197,9 +199,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         console.log('Deleting account...');
     };
 
+    const handleClose = () => {
+        setSelectedCategory("profile");
+        onClose();
+    };
+
     return (
         <>
-            <Modal isOpen={isOpen} onClose={onClose} size="lg">
+            <Modal open={isOpen} onOpenChange={handleClose} size="lg">
                 <div className="bg-white/95 backdrop-blur-lg rounded-lg shadow-2xl border border-white/20 max-h-[80vh] overflow-hidden">
                     <div className="flex items-center justify-between p-6 border-b border-gray-200">
                         <div className="flex items-center space-x-3">
@@ -212,7 +219,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     </div>
 
                     <div className="flex">
-                        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                        <Tabs value={selectedCategory} onValueChange={(value: string) => setSelectedCategory(value as SettingCategory)} className="w-full">
                             <TabsList className="flex flex-col h-full w-48 p-2 bg-gray-50/50 rounded-none">
                                 <TabsTrigger value="profile" className="w-full justify-start space-x-2">
                                     <User className="w-4 h-4" />
@@ -628,7 +635,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </Modal>
 
             {/* Logout Confirmation Modal */}
-            <Modal isOpen={showLogoutModal} onClose={() => setShowLogoutModal(false)} size="sm">
+            <Modal open={showLogoutModal} onOpenChange={() => setShowLogoutModal(false)} size="sm">
                 <div className="bg-white/95 backdrop-blur-lg rounded-lg shadow-2xl border border-white/20 p-6">
                     <div className="flex items-center space-x-3 mb-4">
                         <div className="flex-shrink-0">
@@ -654,7 +661,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </Modal>
 
             {/* Delete Account Confirmation Modal */}
-            <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} size="sm">
+            <Modal open={showDeleteModal} onOpenChange={() => setShowDeleteModal(false)} size="sm">
                 <div className="bg-white/95 backdrop-blur-lg rounded-lg shadow-2xl border border-white/20 p-6">
                     <div className="flex items-center space-x-3 mb-4">
                         <div className="flex-shrink-0">
