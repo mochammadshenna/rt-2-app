@@ -9,22 +9,22 @@ import { useEffect, useState } from "react"
 
 export default function HomePage() {
     const [selectedCard, setSelectedCard] = useState<string | null>(null)
-    const [userRole, setUserRole] = useState<'admin' | 'warga' | 'guest' | null>(null)
+    const [userRole, setUserRole] = useState<'admin' | 'warga' | null>(null)
     const searchParams = useSearchParams()
     const router = useRouter()
 
     useEffect(() => {
         // Check URL params first
         const roleParam = searchParams.get('role')
-        if (roleParam && ['admin', 'warga', 'guest'].includes(roleParam)) {
-            setUserRole(roleParam as 'admin' | 'warga' | 'guest')
+        if (roleParam && ['admin', 'warga'].includes(roleParam)) {
+            setUserRole(roleParam as 'admin' | 'warga')
             return
         }
 
         // Check localStorage for stored user type
         const storedUserType = localStorage.getItem('userType')
-        if (storedUserType && ['admin', 'warga', 'guest'].includes(storedUserType)) {
-            setUserRole(storedUserType as 'admin' | 'warga' | 'guest')
+        if (storedUserType && ['admin', 'warga'].includes(storedUserType)) {
+            setUserRole(storedUserType as 'admin' | 'warga')
             return
         }
 

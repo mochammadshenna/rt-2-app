@@ -6,10 +6,10 @@ import { Bell, LogOut, User } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 interface DashboardHeaderProps {
-    userRole?: 'admin' | 'warga' | 'guest'
+    userRole?: 'admin' | 'warga'
 }
 
-export default function DashboardHeader({ userRole = 'guest' }: DashboardHeaderProps) {
+export default function DashboardHeader({ userRole = 'warga' }: DashboardHeaderProps) {
     const router = useRouter()
 
     const handleLogout = () => {
@@ -23,10 +23,8 @@ export default function DashboardHeader({ userRole = 'guest' }: DashboardHeaderP
                 return { title: 'Pengurus RT', subtitle: 'Kelola Laporan', bgColor: 'bg-red-500/20' }
             case 'warga':
                 return { title: 'RT Apps', subtitle: 'Hallo Warga RT 02', bgColor: 'bg-blue-500/20' }
-            case 'guest':
-                return { title: 'RT Apps', subtitle: 'Hallo Warga RT 02', bgColor: 'bg-gray-500/20' }
             default:
-                return { title: 'Dashboard', subtitle: 'Hallo Warga RT 02', bgColor: 'bg-white/20' }
+                return { title: 'RT Apps', subtitle: 'Hallo Warga RT 02', bgColor: 'bg-white/20' }
         }
     }
 

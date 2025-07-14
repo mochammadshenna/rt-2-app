@@ -11,7 +11,6 @@ interface ActionCard {
     route: string
     shortDescription: string
     adminOnly?: boolean
-    guestRestricted?: boolean
 }
 
 const actionCards: ActionCard[] = [
@@ -47,7 +46,6 @@ const actionCards: ActionCard[] = [
         backgroundColor: "bg-gradient-to-br from-blue-100 to-blue-200",
         route: "/buat-surat",
         shortDescription: "Buat surat pengantar",
-        guestRestricted: true
     },
     {
         id: "lapor",
@@ -64,7 +62,6 @@ const actionCards: ActionCard[] = [
         backgroundColor: "bg-gradient-to-br from-pink-100 to-pink-200",
         route: "/cctv",
         shortDescription: "Monitor keamanan area",
-        guestRestricted: true
     },
     {
         id: "admin",
@@ -82,27 +79,21 @@ const actionCards: ActionCard[] = [
         backgroundColor: "bg-gradient-to-br from-indigo-100 to-indigo-200",
         route: "/switch-rumah",
         shortDescription: "Perbaharui data tinggal",
-        guestRestricted: true
     }
 ]
 
 interface ActionCardsGridProps {
     onCardClick?: (cardId: string) => void
-    userRole?: 'admin' | 'warga' | 'guest'
+    userRole?: 'admin' | 'warga'
 }
 
-export default function ActionCardsGrid({ onCardClick, userRole = 'guest' }: ActionCardsGridProps) {
+export default function ActionCardsGrid({ onCardClick, userRole = 'warga' }: ActionCardsGridProps) {
     const router = useRouter()
 
     const handleCardClick = (card: ActionCard) => {
         // Check permissions
         if (card.adminOnly && userRole !== 'admin') {
             alert('Fitur ini hanya tersedia untuk Admin')
-            return
-        }
-
-        if (card.guestRestricted && userRole === 'guest') {
-            alert('Silakan login sebagai warga untuk mengakses fitur ini')
             return
         }
 
@@ -115,11 +106,6 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'guest' }: Act
 
     const getFilteredCards = () => {
         return actionCards.filter(card => {
-            // For guest users, hide admin-only cards and guest-restricted cards
-            if (userRole === 'guest') {
-                return !card.adminOnly && !card.guestRestricted
-            }
-
             // For admin users, show all cards, including admin-only ones.
             // Admin cards themselves will be filtered out if their 'id' is 'admin' from the overall list,
             // as the admin dashboard provides specific admin functionalities.
@@ -127,9 +113,9 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'guest' }: Act
                 return true
             }
 
-            // For wargas, show all cards except admin-only and guest-restricted
+            // For wargas, show all cards except admin-only
             if (userRole === 'warga') {
-                return !card.adminOnly && !card.guestRestricted
+                return !card.adminOnly
             }
 
             return true
@@ -141,8 +127,7 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'guest' }: Act
             <div className="grid grid-cols-2 gap-4 sm:gap-6">
                 {getFilteredCards().map((card) => {
                     const IconComponent = card.icon
-                    const isRestricted = (card.adminOnly && userRole !== 'admin') ||
-                        (card.guestRestricted && userRole === 'guest')
+                    const isRestricted = (card.adminOnly && userRole !== 'admin')
 
                     return (
                         <button
@@ -180,11 +165,6 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'guest' }: Act
                                             <span className="text-white text-xs">A</span>
                                         </div>
                                     )}
-                                    {card.guestRestricted && userRole === 'guest' && (
-                                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center">
-                                            <Lock className="w-2 h-2 text-white" />
-                                        </div>
-                                    )}
                                 </div>
 
                                 <div className="text-center space-y-1">
@@ -212,14 +192,6 @@ export default function ActionCardsGrid({ onCardClick, userRole = 'guest' }: Act
             </div>
 
             {/* Role Information */}
-            {userRole === 'guest' && (
-                <div className="mt-6 p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
-                    <p className="text-white/90 text-sm text-center">
-                        💡 Beberapa fitur terbatas untuk Guest. Login sebagai warga untuk akses penuh.
-                    </p>
-                </div>
-            )}
-
             {userRole === 'admin' && (
                 <div className="mt-6 p-4 bg-red-500/10 backdrop-blur-sm rounded-2xl border border-red-400/20">
                     <p className="text-white/90 text-sm text-center">
