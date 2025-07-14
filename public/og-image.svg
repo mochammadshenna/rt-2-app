@@ -1,5 +1,5 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
   <rect width="1200" height="630" fill="#4F46E5"/>
-  <text x="600" y="315" font-family="Arial" font-size="200" text-anchor="middle" fill="#FFFFFF" dominant-baseline="middle">Rukun Tetangga 02</text>
-  <text x="600" y="450" font-family="Arial" font-size="60" text-anchor="middle" fill="#FFFFFF" dominant-baseline="middle">Aplikasi Manajemen Rukun Tetangga</text>
+  <text x="600" y="260" font-family="Arial" font-size="120" text-anchor="middle" fill="#FFFFFF" dominant-baseline="middle">Rukun Tetangga 02</text>
+  <text x="600" y="380" font-family="Arial" font-size="35" text-anchor="middle" fill="#FFFFFF" dominant-baseline="middle">Aplikasi Manajemen Rukun Tetangga</text>
 </svg> 
