@@ -18,7 +18,7 @@ const actionCards: ActionCard[] = [
         id: "iuran",
         label: "Iuran",
         icon: CreditCard,
-        backgroundColor: "bg-gradient-to-br from-purple-100 to-purple-200",
+        backgroundColor: "bg-gradient-to-br from-purple-300 to-purple-500",
         route: "/tagihan",
         shortDescription: "Lihat dan bayar iuran"
     },
@@ -26,7 +26,7 @@ const actionCards: ActionCard[] = [
         id: "bagikan-informasi",
         label: "Bagikan Informasi",
         icon: Megaphone,
-        backgroundColor: "bg-gradient-to-br from-green-100 to-green-200",
+        backgroundColor: "bg-gradient-to-br from-green-300 to-green-500",
         route: "/bagikan-informasi",
         shortDescription: "Berbagi info komunitas",
         adminOnly: true
@@ -35,7 +35,7 @@ const actionCards: ActionCard[] = [
         id: "riwayat",
         label: "Riwayat",
         icon: FileText,
-        backgroundColor: "bg-gradient-to-br from-orange-100 to-orange-200",
+        backgroundColor: "bg-gradient-to-br from-orange-300 to-orange-500",
         route: "/riwayat",
         shortDescription: "Lihat aktivitas terdahulu"
     },
@@ -43,7 +43,7 @@ const actionCards: ActionCard[] = [
         id: "buat-surat",
         label: "Buat Surat",
         icon: FileSignature,
-        backgroundColor: "bg-gradient-to-br from-blue-100 to-blue-200",
+        backgroundColor: "bg-gradient-to-br from-blue-300 to-blue-500",
         route: "/buat-surat",
         shortDescription: "Buat surat pengantar",
     },
@@ -51,7 +51,7 @@ const actionCards: ActionCard[] = [
         id: "lapor",
         label: "Lapor",
         icon: MessageSquare,
-        backgroundColor: "bg-gradient-to-br from-yellow-100 to-yellow-200",
+        backgroundColor: "bg-gradient-to-br from-yellow-300 to-yellow-500",
         route: "/lapor",
         shortDescription: "Temuan penting"
     },
@@ -59,7 +59,7 @@ const actionCards: ActionCard[] = [
         id: "cctv",
         label: "CCTV",
         icon: Camera,
-        backgroundColor: "bg-gradient-to-br from-pink-100 to-pink-200",
+        backgroundColor: "bg-gradient-to-br from-pink-300 to-pink-500",
         route: "/cctv",
         shortDescription: "Monitor keamanan area",
     },
@@ -67,7 +67,7 @@ const actionCards: ActionCard[] = [
         id: "admin",
         label: "Admin",
         icon: Settings,
-        backgroundColor: "bg-gradient-to-br from-gray-100 to-gray-200",
+        backgroundColor: "bg-gradient-to-br from-gray-300 to-gray-500",
         route: "/admin",
         shortDescription: "Panel pengurus RT",
         adminOnly: true
@@ -76,7 +76,7 @@ const actionCards: ActionCard[] = [
         id: "switch-rumah",
         label: "Pindah Alamat",
         icon: MapPin,
-        backgroundColor: "bg-gradient-to-br from-indigo-100 to-indigo-200",
+        backgroundColor: "bg-gradient-to-br from-indigo-300 to-indigo-500",
         route: "/switch-rumah",
         shortDescription: "Perbaharui data tinggal",
     }
